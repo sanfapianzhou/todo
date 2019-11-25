@@ -5,9 +5,18 @@
     <button @click="flag=!flag">挂载以及卸载组件</button>
     <div class="todo">
       <div id="chjtd">
-        <input type="text" v-model="todo" @keydown="ent1()" />
+        <input type="text" v-model="todo1" @keydown="ent1()" />
         <button @click="chji()"><i class="fa fa-plus fa-2x"></i> </button>
-      </div>
+       </div>
+       <!-- <div>
+        <ul>
+         <li v-for="(item,key) in list" v-if="!item.chex">
+            <input type="checkbox" v-model="item.chex" />
+            {{item.title}}
+            <button @click="shch(key)"><i class="fa fa-window-close"></i></button>
+          </li>
+          </ul>
+      </div> -->
       <hr />
       <v-doing></v-doing>
       <v-done></v-done>
@@ -24,12 +33,12 @@ import doing from "./components/doing.vue";
 import done from "./components/done.vue";
 import storage from "./model/storage.js"; //把js文件中的代码赋给storage，封装 
 import vuentt from  "./model/vuentt.js";
-console.log(storage);
+ console.log(storage);
 export default {
   name: "app",
   data() {
     return {
-      todo: "",
+      todo1: "",
       list: [],
       flag: true,
       msg: 'keyi',
@@ -37,32 +46,24 @@ export default {
   },
   methods: {
     chji() {
-      this.list.push({ title: this.todo, chex: false });
-      this.todo = "";
+      this.list.push({ title: this.todo1, chex: false });
+      this.todo1 = "";
       vuentt.$emit('todoing',this.list);
       //localStorage.setItem('list',JSON.stringify(this.list)) 未封装
-      storage.set("list", this.list); //封装函数
+       storage.set("list", this.list); //封装函数
      
     }, 
-    // shch(key) {
-    //   this.list.splice(key, 1);
-    //   //localStorage.setItem('list',JSON.stringify(this.list))
-    //   storage.set("list", this.list);
-    // },
+    
     ent1() {
       if (window.event.keyCode == 13) {
         this.chji();
+ 
       }
     },
-    // bcxz() {
-    //   //localStorage.setItem('list',JSON.stringify(this.list));
-    //   storage.set("list", this.list);
-
-    // }
   },
   mounted() {
     //生命周期，vue页面刷新后触发
-    //var list=JSON.parse(localStorage.getItem('list'));
+    var list=JSON.parse(localStorage.getItem('list'));
     var list = storage.get("list");
     if (list) {
       //list不为空
@@ -79,6 +80,14 @@ export default {
 </script>
 
 <style lang="scss">
+ li {
+    background-color: #fff;
+    margin: 5px;
+    width: 300px;
+    border: 1px;
+    border-left: 5px solid green;
+    color: blue;
+  }
 body {
   background-image: url("./assets/bg.jpg");
 }
@@ -88,12 +97,13 @@ body {
   margin: 0 auto;
   padding: 20px;
   background-color:  rgb(226, 215, 215);
-  
 }
 input{
   vertical-align: middle;
   border: 0px;
   line-height: 27px;
+font-size: 20px;
+  outline:none;
 }
 button{
  vertical-align: middle;
@@ -108,6 +118,5 @@ button{
   input{
       width: 200px;
   }
-
 }
 </style>

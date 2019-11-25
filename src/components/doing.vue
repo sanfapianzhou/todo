@@ -1,13 +1,15 @@
 <template>
    <div>
+     <div>
         <h2>正在进行</h2>
         <ul class="zzjx" @change="bcxz()">
-          <li v-for="(item,key) in list" v-if="!item.chex">
+          <li v-for="(item,key) in list1" v-if="!item.chex">
             <input type="checkbox" v-model="item.chex" />
             {{item.title}}
             <button @click="shch(key)"><i class="fa fa-window-close"></i></button>
           </li>
         </ul>
+        </div>
       </div>
 </template>
 
@@ -19,27 +21,27 @@ export default {
        data(){
            return{
              list1:[],
+             count:0,
            }
        },methods:{
            bcxz() {
+           vuentt.$emit('todone',this.list1);
       //localStorage.setItem('list',JSON.stringify(this.list));
-      storage.set("list", this.list1);
+       storage.set("list", this.list1);
     },
     shch(key) {
       this.list1.splice(key, 1);
       //localStorage.setItem('list',JSON.stringify(this.list))
-      storage.set("list", this.list1);
-      // vuentt.$emit('to-done',this.list1);
+       storage.set("list", this.list1)
     },
-       },created(){
-vuentt.$on('todoing',function(data){
-             console.log(data)
-            this.list1 = data;
-         });
-       },
+        },
        mounted(){ 
-       
-         
+         //on注意函数的写法，为箭头函数时可直接使用this
+         vuentt.$on('todoing',(data1)=>{
+            this.list1 = data1;
+            console.log(this.list1)
+         });
+        //  var that =this;
         //  vuentt.$on('to-doing',function(data){
         //      console.log(data)
         //      list = data;
