@@ -16,7 +16,7 @@
 <script>
 import storage from "../model/storage.js"; 
 import vuentt from  "../model/vuentt.js";
-
+import $ from 'jquery';
 export default {
        data(){
            return{
@@ -39,7 +39,11 @@ export default {
          //on注意函数的写法，为箭头函数时可直接使用this
          vuentt.$on('todoing',(data1)=>{
             this.list1 = data1;
-            console.log(this.list1)
+         });
+          vuentt.$on('suxi',(chan)=>{
+            $('.zzjx').css({
+              height: chan +'px',
+            })
          });
         //  var that =this;
         //  vuentt.$on('to-doing',function(data){
@@ -69,5 +73,7 @@ export default {
     position: float;
     float: right;
   }
+  overflow: auto;
+  height: 265px;
 }
 </style>

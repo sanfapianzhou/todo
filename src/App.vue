@@ -1,31 +1,38 @@
 <template>
   <div id="app">
     <!-- 使用组件 -->
-    <v-home v-if="flag"></v-home>
+    <!-- <v-home v-if="flag"></v-home>
     <button @click="flag=!flag">挂载以及卸载组件</button>
-    <div class="todo">
+    <div  class="todo" :style="{marginTop:'100px'}" > -->
+    <div  class="todo" >
       <div id="chjtd">
         <input type="text" v-model="todo1" @keydown="ent1()" />
         <button @click="chji()"><i class="fa fa-plus fa-2x"></i> </button>
        </div>
-       <!-- <div>
-        <ul>
-         <li v-for="(item,key) in list" v-if="!item.chex">
-            <input type="checkbox" v-model="item.chex" />
-            {{item.title}}
-            <button @click="shch(key)"><i class="fa fa-window-close"></i></button>
-          </li>
-          </ul>
-      </div> -->
       <hr />
-      <v-doing></v-doing>
+      <input type="button" value="未完成" @click="flag=true;flag1=false">
+       <input type="button" value="已完成" @click="flag1=true,flag=false">
+        <input type="button" value="全部" @click=" suox()"> 
+      <hr/>
+      <div  v-if="flag">
+        <v-doing></v-doing>
+      </div>
+      <div  v-if="flag1">
+         <v-done></v-done>
+      </div>
+     <div id="doinh" v-if="false">
+           <v-doing></v-doing>
       <v-done></v-done>
+     </div>
+  
     </div>
 
   </div>
+  
 </template>
 
 <script>
+
 //引入组件
 //生命周期函数：组件挂载，以及组件更新组件销毁时触发的一系列方法
 import home from "./components/home";
@@ -33,6 +40,7 @@ import doing from "./components/doing.vue";
 import done from "./components/done.vue";
 import storage from "./model/storage.js"; //把js文件中的代码赋给storage，封装 
 import vuentt from  "./model/vuentt.js";
+import $ from 'jquery';
  console.log(storage);
 export default {
   name: "app",
@@ -41,27 +49,57 @@ export default {
       todo1: "",
       list: [],
       flag: true,
+      flag1: false,
       msg: 'keyi',
     };
   },
   methods: {
     chji() {
-      this.list.push({ title: this.todo1, chex: false });
+      this.list.push({ title: this.todo1, chex: false});
       this.todo1 = "";
       vuentt.$emit('todoing',this.list);
       //localStorage.setItem('list',JSON.stringify(this.list)) 未封装
        storage.set("list", this.list); //封装函数
      
     }, 
-    
     ent1() {
       if (window.event.keyCode == 13) {
         this.chji();
- 
       }
     },
+    suox(){
+       vuentt.$emit('suxi',85);
+      this.flag1=true,this.flag=true;
+     
+    }
   },
   mounted() {
+      center($('.todo'));
+            function center(obj) {
+                var screenWidth = $(window).width();
+                var  screenHeight = $(window).height(); //当前浏览器窗口的 宽高
+                var scrolltop = $(document).scrollTop(); //获取当前窗口距离页面顶部高度
+                var objLeft = (screenWidth - obj.width()) / 2;
+                var objTop = (screenHeight - obj.height()) / 2 + scrolltop;
+               obj.css({
+                        marginLeft: objLeft + 'px',
+                        marginTop: objTop + 'px',
+                        'display': 'block'
+                    });
+                //浏览器窗口大小改变时
+                $(window).resize(function () {
+                    screenWidth = $(window).width();
+                    screenHeight = $(window).height();
+                    scrolltop = $(document).scrollTop();
+                    objLeft = (screenWidth - obj.width()) / 2;
+                    objTop = (screenHeight - obj.height()) / 2 + scrolltop;
+                    obj.css({
+                        marginLeft: objLeft + 'px',
+                        marginTop: objTop + 'px',
+                        'display': 'block'
+                    });
+                });
+    }
     //生命周期，vue页面刷新后触发
     var list=JSON.parse(localStorage.getItem('list'));
     var list = storage.get("list");
@@ -69,6 +107,7 @@ export default {
       //list不为空
       this.list = list;
     }
+           
   },
   components: {
     "v-home": home,//挂载组件
@@ -86,15 +125,14 @@ export default {
     width: 300px;
     border: 1px;
     border-left: 5px solid green;
-    color: blue;
+    color: #000;
   }
 body {
   background-image: url("./assets/bg.jpg");
 }
 .todo {
   width: 450px;
-  height: 400px;
-  margin: 0 auto;
+  height: 420px;
   padding: 20px;
   background-color:  rgb(226, 215, 215);
 }
@@ -119,4 +157,5 @@ button{
       width: 200px;
   }
 }
+
 </style>

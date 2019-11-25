@@ -15,6 +15,7 @@
 <script>
 import storage from "../model/storage.js"; 
 import vuentt from  "../model/vuentt.js";
+import $ from 'jquery';
 export default {
        data(){
            return{
@@ -36,14 +37,19 @@ export default {
        mounted(){
                vuentt.$on('todone',(data2)=>{
             this.list2 = data2;
-            console.log(this.list2)
          });
+          vuentt.$on('suxi',(chan)=>{
+            $('.ywcc').css({
+              height: chan +'px',
+               })
+            }); 
            var list = storage.get("list");
     if (list) {
       //list不为空
       this.list2 = list;
     }  
-       }
+      
+  }
 }
 </script>
 
@@ -64,5 +70,7 @@ export default {
     float: right;
     background-color: transparent;
   }
+  overflow: auto;
+   height: 265px;
 }
 </style>
