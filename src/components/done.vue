@@ -1,6 +1,6 @@
 <template>
      <div>
-        <h2>已完成</h2>
+        <!-- <h2>已完成</h2> -->
         <ul class="ywcc" @change="bcxz()">
           <li v-for="(item,key) in list2" v-if="item.chex">
             <input type="checkbox" v-model="item.chex" />
@@ -15,11 +15,12 @@
 <script>
 import storage from "../model/storage.js"; 
 import vuentt from  "../model/vuentt.js";
-import $ from 'jquery';
+// import $ from 'jquery';
 export default {
        data(){
            return{
              list2:[],
+             gahe: 260,
            }
        },methods:{
            bcxz() {
@@ -38,11 +39,10 @@ export default {
                vuentt.$on('todone',(data2)=>{
             this.list2 = data2;
          });
-          vuentt.$on('suxi',(chan)=>{
-            $('.ywcc').css({
-              height: chan +'px',
-               })
-            }); 
+          // vuentt.$on('suxi',(chan)=>{
+          //   this.gahe =chan;
+               
+          //   }); 
            var list = storage.get("list");
     if (list) {
       //list不为空
@@ -71,6 +71,6 @@ export default {
     background-color: transparent;
   }
   overflow: auto;
-   height: 265px;
+   height: 260px;
 }
 </style>

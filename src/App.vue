@@ -6,29 +6,34 @@
     <div  class="todo" :style="{marginTop:'100px'}" > -->
     <div  class="todo" >
       <div id="chjtd">
-        <input type="text" v-model="todo1" @keydown="ent1()" />
+        <input type="text" placeholder=" todo?"  v-model="todo1" @keydown="ent1()" />
         <button @click="chji()"><i class="fa fa-plus fa-2x"></i> </button>
        </div>
       <hr />
-      <input type="button" value="未完成" @click="flag=true;flag1=false">
-       <input type="button" value="已完成" @click="flag1=true,flag=false">
-        <input type="button" value="全部" @click=" suox()"> 
+      <input type="button" value="未完成" @click="flag=true;flag1=flag2=false">
+       <input type="button" value="已完成" @click="flag1=true,flag=flag2=false">
+        <input type="button" value="全部" @click=" suox()">
       <hr/>
       <div  v-if="flag">
+        <h2>正在进行</h2>
         <v-doing></v-doing>
       </div>
       <div  v-if="flag1">
+        <h2>已完成</h2>
          <v-done></v-done>
       </div>
-     <div id="doinh" v-if="false">
-           <v-doing></v-doing>
-      <v-done></v-done>
+     <div id="qjzb" v-if="flag2" >
+         <h2>正在进行</h2>
+           <v-doing  ></v-doing>
+   <h2>已完成</h2>
+      <v-done ></v-done>
+     
      </div>
-  
+
     </div>
 
   </div>
-  
+
 </template>
 
 <script>
@@ -38,7 +43,7 @@
 import home from "./components/home";
 import doing from "./components/doing.vue";
 import done from "./components/done.vue";
-import storage from "./model/storage.js"; //把js文件中的代码赋给storage，封装 
+import storage from "./model/storage.js"; //把js文件中的代码赋给storage，封装
 import vuentt from  "./model/vuentt.js";
 import $ from 'jquery';
  console.log(storage);
@@ -50,6 +55,7 @@ export default {
       list: [],
       flag: true,
       flag1: false,
+      flag2: false,
       msg: 'keyi',
     };
   },
@@ -60,17 +66,17 @@ export default {
       vuentt.$emit('todoing',this.list);
       //localStorage.setItem('list',JSON.stringify(this.list)) 未封装
        storage.set("list", this.list); //封装函数
-     
-    }, 
+
+    },
     ent1() {
       if (window.event.keyCode == 13) {
         this.chji();
       }
     },
     suox(){
-       vuentt.$emit('suxi',85);
-      this.flag1=true,this.flag=true;
-     
+        // vuentt.$emit('suxi',85);
+       this.flag1=false,this.flag=false,this.flag2=true;
+
     }
   },
   mounted() {
@@ -107,7 +113,7 @@ export default {
       //list不为空
       this.list = list;
     }
-           
+
   },
   components: {
     "v-home": home,//挂载组件
@@ -119,6 +125,7 @@ export default {
 </script>
 
 <style lang="scss">
+
  li {
     background-color: #fff;
     margin: 5px;
@@ -157,5 +164,11 @@ button{
       width: 200px;
   }
 }
-
+#qjzb {
+  
+ ul{
+  height: 85px;
+  color: blue;
+}
+}
 </style>

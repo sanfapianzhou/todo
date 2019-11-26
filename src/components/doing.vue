@@ -1,7 +1,7 @@
 <template>
    <div>
      <div>
-        <h2>正在进行</h2>
+        <!-- <h2>正在进行</h2> -->
         <ul class="zzjx" @change="bcxz()">
           <li v-for="(item,key) in list1" v-if="!item.chex">
             <input type="checkbox" v-model="item.chex" />
@@ -16,12 +16,13 @@
 <script>
 import storage from "../model/storage.js"; 
 import vuentt from  "../model/vuentt.js";
-import $ from 'jquery';
+// import $ from 'jquery';
 export default {
        data(){
            return{
              list1:[],
              count:0,
+            
            }
        },methods:{
            bcxz() {
@@ -40,11 +41,11 @@ export default {
          vuentt.$on('todoing',(data1)=>{
             this.list1 = data1;
          });
-          vuentt.$on('suxi',(chan)=>{
-            $('.zzjx').css({
-              height: chan +'px',
-            })
-         });
+        //   vuentt.$on('suxi',(chan)=>{
+        //     $('.zzjx').css({
+        //       height: chan +'px',
+        //     })
+        //  });
         //  var that =this;
         //  vuentt.$on('to-doing',function(data){
         //      console.log(data)
@@ -74,6 +75,6 @@ export default {
     float: right;
   }
   overflow: auto;
-  height: 265px;
+  height: 260px;
 }
 </style>
