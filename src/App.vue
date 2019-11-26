@@ -15,8 +15,7 @@
         <input type="button" value="全部" @click=" suox()">
       <hr/>
       <div  v-if="flag">
-
-        <h2>正在进行</h2> <span>{{doingcd}}</span>
+        <h2>正在进行</h2> 
         <v-doing ></v-doing>
       </div>
       <div  v-if="flag1">
@@ -26,18 +25,13 @@
       </div>
      <div id="qjzb" v-if="flag2" >
          <h2>正在进行</h2> 
-         <span>{{doingcd}}</span>
            <v-doing ref="doing" ></v-doing>
    <h2>已完成</h2> 
    <!-- <span>{{donecd}}</span> -->
       <v-done ref="done"></v-done>
-     
      </div>
-
     </div>
-
   </div>
-
 </template>
 
 <script>
@@ -72,7 +66,6 @@ export default {
       vuentt.$emit('todoing',this.list);
       //localStorage.setItem('list',JSON.stringify(this.list)) 未封装
        storage.set("list", this.list); //封装函数
-
     },
     ent1() {
       if (window.event.keyCode == 13) {
@@ -130,7 +123,6 @@ export default {
     "v-home": home,//挂载组件
     "v-doing": doing,
     "v-done": done
-
   }
 };
 </script>
@@ -140,7 +132,8 @@ h2{
   display: inline;
 }
 span{
- float: right;
+ float:left;
+ margin-left: 20px;
  font-size: 21px;
 }
  li {
@@ -182,7 +175,6 @@ button{
   }
 }
 #qjzb {
-  
  ul{
   height: 85px;
   color: blue;
