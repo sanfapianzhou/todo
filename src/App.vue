@@ -15,18 +15,22 @@
         <input type="button" value="全部" @click=" suox()">
       <hr/>
       <div  v-if="flag">
-        <h2>正在进行</h2>
-        <v-doing></v-doing>
+
+        <h2>正在进行</h2> <span>{{doingcd}}</span>
+        <v-doing ></v-doing>
       </div>
       <div  v-if="flag1">
         <h2>已完成</h2>
+         <!-- <span>{{donecd}}</span> -->
          <v-done></v-done>
       </div>
      <div id="qjzb" v-if="flag2" >
-         <h2>正在进行</h2>
-           <v-doing  ></v-doing>
-   <h2>已完成</h2>
-      <v-done ></v-done>
+         <h2>正在进行</h2> 
+         <span>{{doingcd}}</span>
+           <v-doing ref="doing" ></v-doing>
+   <h2>已完成</h2> 
+   <!-- <span>{{donecd}}</span> -->
+      <v-done ref="done"></v-done>
      
      </div>
 
@@ -57,6 +61,8 @@ export default {
       flag1: false,
       flag2: false,
       msg: 'keyi',
+      donecd: 0,
+      doingcd:0,
     };
   },
   methods: {
@@ -76,7 +82,7 @@ export default {
     suox(){
         // vuentt.$emit('suxi',85);
        this.flag1=false,this.flag=false,this.flag2=true;
-
+       console.log(this.$refs.doing)
     }
   },
   mounted() {
@@ -113,7 +119,12 @@ export default {
       //list不为空
       this.list = list;
     }
-
+//  vuentt.$on('toapp',(cd1)=>{
+//             this.donecd = cd1;
+//          });
+  vuentt.$on('toapp1',(cd2)=>{
+            this.doingcd = cd2;
+         });
   },
   components: {
     "v-home": home,//挂载组件
@@ -125,7 +136,13 @@ export default {
 </script>
 
 <style lang="scss">
-
+h2{
+  display: inline;
+}
+span{
+ float: right;
+ font-size: 21px;
+}
  li {
     background-color: #fff;
     margin: 5px;

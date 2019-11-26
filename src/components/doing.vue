@@ -29,11 +29,17 @@ export default {
            vuentt.$emit('todone',this.list1);
       //localStorage.setItem('list',JSON.stringify(this.list));
        storage.set("list", this.list1);
+         this.count= (this.list1.filter(function(item){
+    return item.chex == false;})).length;
+    vuentt.$emit('toapp1',this.count);
     },
     shch(key) {
       this.list1.splice(key, 1);
       //localStorage.setItem('list',JSON.stringify(this.list))
        storage.set("list", this.list1)
+       this.count= (this.list1.filter(function(item){
+    return item.chex == false;})).length;
+    vuentt.$emit('toapp1',this.count);
     },
         },
        mounted(){ 
@@ -55,6 +61,9 @@ export default {
     if (list) {
       //list不为空
       this.list1 = list;
+      this.count= (this.list1.filter(function(item){
+    return item.chex == false;})).length;
+    vuentt.$emit('toapp1',this.count);
     }  
        }
 }
