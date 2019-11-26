@@ -20,7 +20,7 @@ import $ from "jquery";
 export default {
   data() {
     return {
-      list2: {},
+      list2: [],
       gahe: 0
     };
   },

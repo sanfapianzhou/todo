@@ -10,9 +10,11 @@
         <button @click="chji()"><i class="fa fa-plus fa-2x"></i> </button>
        </div>
       <hr />
+      <div class="daha">
       <input type="button" value="未完成" @click="flag=true;flag1=flag2=false">
        <input type="button" value="已完成" @click="flag1=true,flag=flag2=false">
         <input type="button" value="全部" @click=" suox()">
+        </div>
       <hr/>
       <div  v-if="flag">
         <h2>正在进行</h2> 
@@ -131,10 +133,29 @@ export default {
 h2{
   display: inline;
 }
+input{
+  vertical-align: middle;
+  border: 0px;
+  line-height: 27px;
+font-size: 20px;
+  outline:none;
+}
 span{
  float:left;
  margin-left: 20px;
  font-size: 21px;
+}
+.daha{
+  margin: 0 auto;
+  input[type="button"]{
+    width: 30%;
+    margin-right: 10px;
+  }
+  input[type="button"]:focus{
+    border-bottom: 3px solid aqua;
+   
+  }
+  
 }
  li {
     background-color: #fff;
@@ -153,13 +174,7 @@ body {
   padding: 20px;
   background-color:  rgb(226, 215, 215);
 }
-input{
-  vertical-align: middle;
-  border: 0px;
-  line-height: 27px;
-font-size: 20px;
-  outline:none;
-}
+
 button{
  vertical-align: middle;
   background-color: #fff;
