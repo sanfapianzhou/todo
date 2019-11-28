@@ -3,13 +3,13 @@ import '../assets/styles/footer.styl'
 export default {
     data(){
         return{
-            author: 'Jasonccj'
+            author: ''
         }
     },
     render(){
         return (
             <div id="footer">
-                <span>Written by {this.author}</span>
+                {/* <span>Written by {this.author}</span> */}
             </div>
         )
     }
