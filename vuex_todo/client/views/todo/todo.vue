@@ -5,8 +5,7 @@
             class="add-input"
             autofocus="autofocus"
             placeholder="接下去要做什么?"
-            @keyup.enter="addTodo"
-        >
+            @keyup.enter="addTodo"/>
         <Item
             :todo="todo"
             v-for="todo in filteredTodos"
